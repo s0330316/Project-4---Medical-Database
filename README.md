@@ -22,6 +22,35 @@ What things you need to install the software and how to install them:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/your-repository.git
-   cd your-repository
+   git clone https://github.com/s0330316/Project-4---Medical-Database.git
+   cd Project-4---Medical-Database
+
+2. **Create a virtual environment:**
+   ```bash
+   python -m venv venv
    
+3. **Activate the virtual environment:**
+   ```bash
+   On Windows:
+   .\venv\Scripts\activate
+
+   On macOS/Linux:
+   source venv/bin/activate
+
+4. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+
+5. **Run migrations:**
+   ```bash
+   python manage.py migrate
+
+6. **Create a superuser (optional):**
+   ```bash 
+   python manage.py createsuperuser
+
+7. **Start the development server:**
+   ```bash
+   python manage.py runserver
+   
+   Visit http://127.0.0.1:8000/ in your web browser.

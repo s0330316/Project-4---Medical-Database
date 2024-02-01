@@ -1,3 +1,13 @@
 # created by virtualenv automatically
+
+# virtualenv
+.idea/
 venv/
-*
+bin/
+lib/
+__pycache__/
+
+
+# pyenv
+.python-version
+
