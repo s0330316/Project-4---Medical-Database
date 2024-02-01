@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medication Selection</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e0dede;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        form {
+            background-color: #f4f2f2;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #3e3c3c;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #5a5959;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #fff;
+        }
+
+        input[type="submit"] {
+            background-color: #8a817c;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #635d5a;
+        }
+
+        a {
+            display: block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #576462;
+            font-size: 14px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <form method="post" action="{% url 'show_side_effects' %}">
+        {% csrf_token %}
+
+        <h1>Medikamente auswählen</h1>
+
+        <label for="medication_1_name">Medikament 1:</label>
+        {{ form.medication_1_name }}
+        <br>
+
+        {% if form.num_medications.value == '2' %}
+            <label for="medication_2_name">Medikament 2:</label>
+            {{ form.medication_2_name }}
+            <br>
+        {% endif %}
+
+        <input type="submit" value="Nebenwirkungen anzeigen">
+
+
+        <a href="{% url 'home' %}">Zurück zur Startseite</a>
+    </form>
+
+    <footer>
+        &copy; 2024 Medical Database. All rights reserved.
+    </footer>
+</body>
+</html>

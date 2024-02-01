@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ergebnisse der Analyse</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e0dede;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #e0dede;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            font-size: 24px;
+            width: 100%;
+        }
+
+        main {
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        h1 {
+            color: #333;
+            margin-top: 10px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #333;
+            margin: 5px 0;
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            font-size: 16px;
+        }
+
+        section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        a {
+            display: block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #576462;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Analysis Results</h1>
+    </header>
+
+    <main>
+        <section>
+            <p>Diese Analyse basiert auf den von Ihnen gemeldeten Nebenwirkungen.</p>
+            <p> Die Score zeigt an, wie stark die ausgewählten Nebenwirkungen mit den Nebenwirkungen der gefundenen
+                Medikamente korrelieren. Ein höherer Score bedeutet, dass das Medikament wahrscheinlich besser zu den
+                gemeldeten Symptomen passt.</p>
+
+            <p><strong>Ausgewählte Nebenwirkungen:</strong></p>
+            <ul>
+                {% for side_effect in selected_side_effects %}
+                    <li>{{ side_effect }}</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section>
+            <h2>Beste übereinstimmende Medikamente:</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>STITCH1</th>
+                        <th>STITCH2</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in matching_medications %}
+                        <tr>
+                            {% if entry|length == 2 %}
+                                <td>{{ entry.0.0 }}</td>
+                                <td>{{ entry.0.1 }}</td>
+                                <td>{{ entry.1.0 }}</td>
+
+                            {% elif num_medications == 1 %}
+                                <td>{{ entry.0.0 }}</td>
+                                <td>{{ entry.1.0 }}</td>
+
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a href="{% url 'home' %}">Zurück zur Startseite</a>
+        </section>
+    </main>
+    <footer>
+        &copy; 2024 Medical Database. All rights reserved.
+    </footer>
+</body>
+</html>

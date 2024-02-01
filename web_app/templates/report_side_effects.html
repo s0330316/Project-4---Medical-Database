@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nebenwirkungen melden</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e0dede;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        header {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        p {
+            margin-top: 20px;
+            color: #888;
+            text-align: center;
+        }
+
+        a {
+            display: block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #576462;
+            font-size: 14px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Neue Nebenwirkung</h1>
+
+    {% if num_medications == 1 %}
+        <h2>Nebenwirkung wurde für {{ medication_name_1 }} gemeldet</h2>
+    {% elif num_medications == 2 %}
+        <h2>Nebenwirkung wurde für {{ medication_name_1 }} und {{ medication_name_2 }} gemeldet</h2>
+    {% endif %}
+
+    <!-- Bestätigungstext -->
+    <p>Vielen Dank für die Meldung der Nebenwirkungen. Ihre Einreichung wurde erhalten.</p>
+
+    <a href="{% url 'home' %}">Zurück zur Startseite</a>
+</body>
+</html>
+

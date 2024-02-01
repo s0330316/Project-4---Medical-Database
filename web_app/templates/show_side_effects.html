@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Side Effects</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0dede;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border: 2px solid black; /* Black border for the table */
+            background-color: #fff; /* White background for the table */
+        }
+
+        th, td {
+            border: 1px solid black; /* Black border for cells */
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        p {
+            color: #888;
+        }
+
+        form {
+            background-color: #f4f2f2;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #5a5959;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #fff;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            background-color: #8a817c;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #635d5a;
+        }
+
+        a {
+            display: block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #576462;
+            font-size: 14px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Nebenwirkungen einsehen und eintragen</h1>
+
+    {% if num_medications == 1 %}
+        <h2>Nebenwirkungen für {{ medication_name_1 }}</h2>
+        {% if side_effects %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Individual Side Effect</th>
+                        <th>Side Effect Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for effect in side_effects %}
+                        <tr>
+                            <td>{{ effect.Individual_Side_Effect }}</td>
+                            <td>{{ effect.Side_Effect_Name }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No side effects found for {{ medication_name_1 }}.</p>
+        {% endif %}
+    {% elif num_medications == 2 %}
+        <h2>Side Effects for {{ medication_name_1 }} and {{ medication_name_2 }}</h2>
+        {% if side_effects %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Polypharmacy Side Effects</th>
+                        <th>Side Effect Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for effect in side_effects %}
+                        <tr>
+                            <td>{{ effect.Polypharmacy_Side_Effects }}</td>
+                            <td>{{ effect.Side_Effect_Name }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No side effects found for {{ medication_name_1 }} and {{ medication_name_2 }}.</p>
+        {% endif %}
+    {% else %}
+        <p>No side effects found.</p>
+    {% endif %}
+
+
+    <h2>Melde eigene Nebenwirkungen</h2>
+    <form method="post" action="{% url 'report_side_effects' %}">
+        {% csrf_token %}
+        <input type="hidden" name="medication_name_1" value="{{ medication_name_1 }}">
+        <input type="hidden" name="medication_name_2" value="{{ medication_name_2 }}">
+
+        {% if num_medications == 1 %}
+            <!-- Formularfelder für 1 Medikation -->
+            <label for="individual_side_effect">Individual Side Effect:</label>
+            <input type="text" name="individual_side_effect" required>
+            <br>
+
+            <label for="side_effect_name">Side Effect Name:</label>
+            <input type="text" name="side_effect_name" required>
+            <br>
+        {% elif num_medications == 2 %}
+            <!-- Formularfelder für 2 Medikationen -->
+            <label for="polypharmacy_side_effects">Polypharmacy Side Effects:</label>
+            <input type="text" name="polypharmacy_side_effects">
+            <br>
+
+            <label for="side_effect_name">Side Effect Name:</label>
+            <input type="text" name="side_effect_name" required>
+            <br>
+        {% endif %}
+        <input type="submit" value="Melden">
+    </form>
+
+    <footer>
+        &copy; 2024 Medical Database. All rights reserved.
+    </footer>
+</body>
+</html>
